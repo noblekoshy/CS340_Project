@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>items</title>
+</head>
+<body>
+    <a href="index.html">home</a>
+    <a href="departments.html">departments</a>
+    <a href="employees.html">employees</a>
+    <a href="items.html">items</a>
+    <a href="returns.html">returns</a>
+    <a href="return_details.html">return details</a>
+    <a href="sales.html">sales</a>
+    <a href="sale_details.html">sale details</a>
+
+    <div id="browse" style="display: block">
+        <p>
+            <strong>Browse items</strong>
+        </p>
+        <table border="2" cellpadding="6">
+            <thead>
+                <tr>
+                    <th><a href="#">New</a></th>
+                    <th></th>
+                    <th>item_id</th>
+                    <th>name</th>
+                    <th>brand</th>
+                    <th>price</th>
+                    <th>clearance</th>
+                    <th>department_id</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>basketball</td>
+                <td>wilson</td>
+                <td>50.00</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>baseball glove</td>
+                <td>nike</td>
+                <td>100.00</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>treadmill</td>
+                <td>peloton</td>
+                <td>300.00</td>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="insert" style="display: block">
+        <form id="add_item">
+            <legend><strong>Add Item</strong></legend>
+              <fieldset class="fields">
+                <label> item_id </label> <input type="text" name="">
+                <label> name </label> <input type="text" name="">
+                <label> brand</label> <input type="text" name="">
+                <label> price </label> <input type="text" name="">
+                <label> clearance </label> <input type="text" name="">
+                <label> department_id </label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="add_item" value="Add Item">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="update" style="display: block">
+        <form id="update_item">
+            <legend><strong>Update Item</strong></legend>
+              <fieldset class="fields">
+                <label> item_id </label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> name </label> <input type="text" name="">
+                <label> brand</label> <input type="text" name="">
+                <label> price </label> <input type="text" name="">
+                <label> clearance </label> <input type="text" name="">
+                <label> department_id </label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="update_item" value="Update Item">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="delete" style="display: block">
+        <form id="delete_item">
+            <legend><strong>Delete Item</strong></legend>
+              <fieldset class="fields">
+                <label> item_id </label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> name </label> <input type="text" name="">
+                <label> brand</label> <input type="text" name="">
+                <label> price </label> <input type="text" name="">
+                <label> clearance </label> <input type="text" name="">
+                <label> department_id </label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="delete_item" value="Delete Item">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+
+    
+</body>
+</html>

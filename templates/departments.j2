@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>departments</title>
+</head>
+<body>
+    <a href="index.html">home</a>
+    <a href="departments.html">departments</a>
+    <a href="employees.html">employees</a>
+    <a href="items.html">items</a>
+    <a href="returns.html">returns</a>
+    <a href="return_details.html">return details</a>
+    <a href="sales.html">sales</a>
+    <a href="sale_details.html">sale details</a>
+
+    <div id="browse" style="display: block">
+        <p>
+            <strong>Browse departments</strong>
+        </p>
+        <table border="2" cellpadding="6">
+            <thead>
+                <tr>
+                    <th><a href="#">New</a></th>
+                    <th></th>
+                    <th>department_id</th>
+                    <th>department_name</th>
+                    <th>location</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>sports</td>
+                <td>first floor</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>exercise</td>
+                <td>second floor</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>outdoors</td>
+                <td>third floor</td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="insert" style="display: block">
+        <form id="add_department">
+            <legend><strong>Add Department</strong></legend>
+              <fieldset class="fields">
+                <label> department_id </label> <input type="text" name="">
+                <label> department_name </label> <input type="text" name="">
+                <label> location</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="add_department" value="Add Department">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="update" style="display: block">
+        <form id="update_department">
+            <legend><strong>Update Department</strong></legend>
+              <fieldset class="fields">
+                <label> department_id </label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> department_name </label> <input type="text" name="">
+                <label> location</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="update_department" value="Update Department">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="delete" style="display: block">
+        <form id="delete_department">
+            <legend><strong>Delete Department</strong></legend>
+              <fieldset class="fields">
+                <label> department_id </label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> department_name </label> <input type="text" name="">
+                <label> location</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="delete_department" value="Delete Department">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+
+    
+</body>
+</html>

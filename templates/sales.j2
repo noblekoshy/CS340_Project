@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>sales</title>
+</head>
+<body>
+    <a href="index.html">home</a>
+    <a href="departments.html">departments</a>
+    <a href="employees.html">employees</a>
+    <a href="items.html">items</a>
+    <a href="returns.html">returns</a>
+    <a href="return_details.html">return details</a>
+    <a href="sales.html">sales</a>
+    <a href="sale_details.html">sale details</a>
+
+    <div id="browse" style="display: block">
+        <p>
+            <strong>Browse sales</strong>
+        </p>
+        <table border="2" cellpadding="6">
+            <thead>
+                <tr>
+                    <th><a href="#">New</a></th>
+                    <th></th>
+                    <th>sale_id</th>
+                    <th>sale_date</th>
+                    <th>employee_id</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>2022-04-01 05:05:40</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>2022-04-02 05:05:40</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>2022-04-29 05:05:40</td>
+                <td>3</td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="insert" style="display: block">
+        <form id="add_sale">
+            <legend><strong>Add Sale</strong></legend>
+              <fieldset class="fields">
+                <label> sale_id</label> <input type="text" name="">
+                <label> sale_date</label> <input type="text" name="">
+                <label> employee_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="add_sale" value="Add Sale">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="update" style="display: block">
+        <form id="update_sale">
+            <legend><strong>Update Sale</strong></legend>
+              <fieldset class="fields">
+                <label> sale_id</label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> sale_date</label> <input type="text" name="">
+                <label> employee_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="update_sale" value="Update Sale">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="delete" style="display: block">
+        <form id="delete_sale">
+            <legend><strong>Delete Sale</strong></legend>
+              <fieldset class="fields">
+                <label> sale_id</label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <label> sale_date</label> <input type="text" name="">
+                <label> employee_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="delete_sale" value="Delete Sale">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+</body>
+</html>

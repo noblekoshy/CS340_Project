@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>return details</title>
+</head>
+<body>
+    <a href="index.html">home</a>
+    <a href="departments.html">departments</a>
+    <a href="employees.html">employees</a>
+    <a href="items.html">items</a>
+    <a href="returns.html">returns</a>
+    <a href="return_details.html">return details</a>
+    <a href="sales.html">sales</a>
+    <a href="sale_details.html">sale details</a>
+
+    <div id="browse" style="display: block">
+        <p>
+            <strong>Browse return details</strong>
+        </p>
+        <table border="2" cellpadding="6">
+            <thead>
+                <tr>
+                    <th><a href="#">New</a></th>
+                    <th></th>
+                    <th>return_details_id</th>
+                    <th>return_id</th>
+                    <th>item_id</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div id="insert" style="display: block">
+        <form id="add_return_details">
+            <legend><strong>Add Return Details</strong></legend>
+              <fieldset class="fields">
+                <label> return_details_id</label> <input type="text" name="">
+                <label> return_id</label> <input type="text" name="">
+                <label> item_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="add_return_details" value="Add Return Details">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="update" style="display: block">
+        <form id="update_return_details">
+            <legend><strong>Update Return Details</strong></legend>
+              <fieldset class="fields">
+                <label> return_details_id</label> <input type="text" name="">
+                <label> return_id</label> <input type="text" name="">
+                <label> item_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="update_return_details" value="Update Return Details">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+    <div id="delete" style="display: block">
+        <form id="delete_return_details">
+            <legend><strong>Delete Return Details</strong></legend>
+              <fieldset class="fields">
+                <label> return_details_id</label> <input type="text" name="">
+                <label> return_id</label> <input type="text" name="">
+                <label> item_id</label> <input type="text" name="">
+              </fieldset>
+              <input class="btn" type="submit" id="delete_return_details" value="Delete Return Details">
+              <input class="btn" type="button" value="Cancel">
+        </form>
+    </div>
+</body>
+</html>
