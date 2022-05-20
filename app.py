@@ -1,6 +1,5 @@
-from flask import Flask, render_template, json, redirect
+from flask import Flask, render_template, json, redirect, request
 from flask_mysqldb import MySQL
-from flask import request
 import os
 
 # Adapted from the OSU CS340 Flask Starter App https://github.com/osu-cs340-ecampus/flask-starter-app
@@ -59,6 +58,29 @@ def delete_department(department_id):
 
     # redirect back to departments page
     return redirect("/departments")
+
+# Department Edit
+@app.route("/edit_department/<int:department_id>", methods=["POST", "GET"])
+def edit_department(department_id):
+    if request.method == "GET":
+        query = "SELECT * FROM departments WHERE department_id = %s" % (department_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("edit_department.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Department"):
+            department_name=request.form["department_name"]
+            location=request.form["location"]
+
+        query = "UPDATE departments SET departments.department_name = %s, departments.location = %s WHERE departments.department_id = %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (department_name, location, department_id))
+        mysql.connection.commit()
+
+        return redirect("/departments")
 
 # Listener
 if __name__ == "__main__":
