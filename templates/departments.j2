@@ -1,103 +1,53 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>departments</title>
+    <title>Departments</title>   
 </head>
 <body>
-    <a href="index.html">home</a>
-    <a href="departments.html">departments</a>
-    <a href="employees.html">employees</a>
-    <a href="items.html">items</a>
-    <a href="returns.html">returns</a>
-    <a href="return_details.html">return details</a>
-    <a href="sales.html">sales</a>
-    <a href="sale_details.html">sale details</a>
+    <h1>Departments</h1>
+    <a href="/">Home</a>
+    <table border="1" cellpadding="5">
+    <!-- Access data tuple passed from app.py --> 
+    {% if data %}
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the column name -->
+                {% for key in data[0].keys() %}
+                
+                <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+            
+                <!-- End of this for loop -->
+                {% endfor %} 
+            </tr>
 
-    <div id="browse" style="display: block">
-        <p>
-            <strong>Browse departments</strong>
-        </p>
-        <table border="2" cellpadding="6">
-            <thead>
+        <tbody>
+            <!-- Now, iterate through every item in data -->{% for item in data %}
                 <tr>
-                    <th><a href="#">New</a></th>
-                    <th></th>
-                    <th>department_id</th>
-                    <th>department_name</th>
-                    <th>location</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>1</td>
-                <td>sports</td>
-                <td>first floor</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>2</td>
-                <td>exercise</td>
-                <td>second floor</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>3</td>
-                <td>outdoors</td>
-                <td>third floor</td>
-            </tr>
-        </tbody></table>
-    </div>
-    <div id="insert" style="display: block">
-        <form id="add_department">
-            <legend><strong>Add Department</strong></legend>
-              <fieldset class="fields">
-                <label> department_id </label> <input type="text" name="">
-                <label> department_name </label> <input type="text" name="">
-                <label> location</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="add_department" value="Add Department">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="update" style="display: block">
-        <form id="update_department">
-            <legend><strong>Update Department</strong></legend>
-              <fieldset class="fields">
-                <label> department_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> department_name </label> <input type="text" name="">
-                <label> location</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="update_department" value="Update Department">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="delete" style="display: block">
-        <form id="delete_department">
-            <legend><strong>Delete Department</strong></legend>
-              <fieldset class="fields">
-                <label> department_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> department_name </label> <input type="text" name="">
-                <label> location</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="delete_department" value="Delete Department">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
+                    <!-- Then iterate through every key in the current item dictionary -->
+                    {% for key in item.keys() %}
 
-    
+                    <!-- Create a <td> element with the value of that key in it -->
+                    <td> {{item[key]}} </td> 
+                    {% endfor %}
+
+                    <!-- Create our edit/delete buttons -->
+                    <td><a href="edit_department/{{item.department_id}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_department/{{item.department_id}}" class="btn btn-default">Delete</a></td>
+
+                </tr> 
+                {% endfor %} 
+        {% endif %} 
+    </table>   
+    <div id="insert">
+        <form id="insertDepartment" action="/departments" method="POST">
+            <legend><strong>Add Department</strong></legend>
+            <label for ="department_name">department_name</label>
+            <input type="text" id="department_name" name="department_name" required>
+            <label for ="location">location</label>
+            <input type="text" id="location" name="location" required>
+            <input type="submit" value="Add" name="Add_Department">
+        </form>
+    </div>
 </body>
 </html>
+
