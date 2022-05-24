@@ -50,7 +50,7 @@ def departments():
 # we want to pass the 'id' value of that person on button click (see HTML) via the route
 @app.route("/delete_department/<int:department_id>")
 def delete_department(department_id):
-    # mySQL query to delete the person with our passed id
+    # mySQL query to delete with our passed id
     query = "DELETE FROM departments WHERE department_id = '%s';"
     cur = mysql.connection.cursor()
     cur.execute(query, (department_id,))
@@ -81,6 +81,64 @@ def edit_department(department_id):
         mysql.connection.commit()
 
         return redirect("/departments")
+
+# Employees 
+@app.route('/employees', methods = ["POST", "GET"])
+def employees():
+    if request.method == "GET":
+        # mySQL query to grab all
+        query = "SELECT * FROM employees;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("employees.j2", data=data)
+    # Employee Insert
+    if request.method =="POST":
+        if request.form.get("Add_Employee"):
+            first_name =request.form["first_name"]
+            last_name =request.form["last_name"]
+            query = "INSERT INTO employees (first_name, last_name) VALUES (%s,%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (first_name, last_name))
+            mysql.connection.commit()
+
+        return redirect("/employees")
+
+# Employee Delete
+@app.route("/delete_employee/<int:employee_id>")
+def delete_employee(employee_id):
+    # mySQL query to delete with our passed id
+    query = "DELETE FROM employees WHERE employee_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (employee_id,))
+    mysql.connection.commit()
+
+    # redirect back to departments page
+    return redirect("/employees")
+
+# Employee Edit
+@app.route("/edit_employee/<int:employee_id>", methods=["POST", "GET"])
+def edit_employee(employee_id):
+    if request.method == "GET":
+        query = "SELECT * FROM employees WHERE employee_id = %s" % (employee_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("edit_employee.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Employee"):
+            first_name=request.form["first_name"]
+            last_name=request.form["last_name"]
+
+        query = "UPDATE employees SET employees.first_name = %s, employees.last_name = %s WHERE employees.employee_id = %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (first_name, last_name, employee_id))
+        mysql.connection.commit()
+
+        return redirect("/employees")
 
 # Listener
 if __name__ == "__main__":
