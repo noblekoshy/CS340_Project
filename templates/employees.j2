@@ -1,103 +1,53 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>employees</title>
+    <title>Employees</title>   
 </head>
 <body>
-    <a href="index.html">home</a>
-    <a href="departments.html">departments</a>
-    <a href="employees.html">employees</a>
-    <a href="items.html">items</a>
-    <a href="returns.html">returns</a>
-    <a href="return_details.html">return details</a>
-    <a href="sales.html">sales</a>
-    <a href="sale_details.html">sale details</a>
+    <h1>Employees</h1>
+    <a href="/">Home</a>
+    <table border="1" cellpadding="5">
+    <!-- Access data tuple passed from app.py --> 
+    {% if data %}
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the column name -->
+                {% for key in data[0].keys() %}
+                
+                <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+            
+                <!-- End of this for loop -->
+                {% endfor %} 
+            </tr>
 
-    <div id="browse" style="display: block">
-        <p>
-            <strong>Browse employees</strong>
-        </p>
-        <table border="2" cellpadding="6">
-            <thead>
+        <tbody>
+            <!-- Now, iterate through every item in data -->{% for item in data %}
                 <tr>
-                    <th><a href="#">New</a></th>
-                    <th></th>
-                    <th>employee_id</th>
-                    <th>first_name</th>
-                    <th>last_name</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>1</td>
-                <td>john</td>
-                <td>doe</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>2</td>
-                <td>peter</td>
-                <td>parker</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>3</td>
-                <td>jane</td>
-                <td>doe</td>
-            </tr>
-        </tbody></table>
-    </div>
-    <div id="insert" style="display: block">
-        <form id="add_employee">
-            <legend><strong>Add Employee</strong></legend>
-              <fieldset class="fields">
-                <label> employee_id </label> <input type="text" name="">
-                <label> first_name </label> <input type="text" name="">
-                <label> last_name</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="add_employee" value="Add Employee">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="update" style="display: block">
-        <form id="update_employee">
-            <legend><strong>Update Employee</strong></legend>
-              <fieldset class="fields">
-                <label> employee_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> first_name </label> <input type="text" name="">
-                <label> last_name</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="update_employee" value="Update Employee">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="delete" style="display: block">
-        <form id="delete_employee">
-            <legend><strong>Delete Employee</strong></legend>
-              <fieldset class="fields">
-                <label> employee_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> first_name </label> <input type="text" name="">
-                <label> last_name</label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="delete_employee" value="Delete Employee">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
+                    <!-- Then iterate through every key in the current item dictionary -->
+                    {% for key in item.keys() %}
 
-    
+                    <!-- Create a <td> element with the value of that key in it -->
+                    <td> {{item[key]}} </td> 
+                    {% endfor %}
+
+                    <!-- Create our edit/delete buttons -->
+                    <td><a href="edit_employee/{{item.employee_id}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_employee/{{item.employee_id}}" class="btn btn-default">Delete</a></td>
+
+                </tr> 
+                {% endfor %} 
+        {% endif %} 
+    </table>   
+    <div id="insert">
+        <form id="insertEmployee" action="/employees" method="POST">
+            <legend><strong>Add Employee</strong></legend>
+            <label for ="first_name">first_name</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <label for ="last_name">last_name</label>
+            <input type="text" id="last_name" name="last_name" required>
+            <input type="submit" value="Add" name="Add_Employee">
+        </form>
+    </div>
 </body>
 </html>
+
