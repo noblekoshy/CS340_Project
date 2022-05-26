@@ -1,124 +1,59 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>items</title>
+    <title>Items</title>   
 </head>
 <body>
-    <a href="index.html">home</a>
-    <a href="departments.html">departments</a>
-    <a href="employees.html">employees</a>
-    <a href="items.html">items</a>
-    <a href="returns.html">returns</a>
-    <a href="return_details.html">return details</a>
-    <a href="sales.html">sales</a>
-    <a href="sale_details.html">sale details</a>
+    <h1>Items</h1>
+    <a href="/">Home</a>
+    <table border="1" cellpadding="5">
+    <!-- Access data tuple passed from app.py --> 
+    {% if data %}
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the column name -->
+                {% for key in data[0].keys() %}
+                
+                <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+            
+                <!-- End of this for loop -->
+                {% endfor %} 
+            </tr>
 
-    <div id="browse" style="display: block">
-        <p>
-            <strong>Browse items</strong>
-        </p>
-        <table border="2" cellpadding="6">
-            <thead>
+        <tbody>
+            <!-- Now, iterate through every item in data -->{% for item in data %}
                 <tr>
-                    <th><a href="#">New</a></th>
-                    <th></th>
-                    <th>item_id</th>
-                    <th>name</th>
-                    <th>brand</th>
-                    <th>price</th>
-                    <th>clearance</th>
-                    <th>department_id</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>1</td>
-                <td>basketball</td>
-                <td>wilson</td>
-                <td>50.00</td>
-                <td>0</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>2</td>
-                <td>baseball glove</td>
-                <td>nike</td>
-                <td>100.00</td>
-                <td>0</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
-                <td>3</td>
-                <td>treadmill</td>
-                <td>peloton</td>
-                <td>300.00</td>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-        </tbody></table>
-    </div>
-    <div id="insert" style="display: block">
-        <form id="add_item">
-            <legend><strong>Add Item</strong></legend>
-              <fieldset class="fields">
-                <label> item_id </label> <input type="text" name="">
-                <label> name </label> <input type="text" name="">
-                <label> brand</label> <input type="text" name="">
-                <label> price </label> <input type="text" name="">
-                <label> clearance </label> <input type="text" name="">
-                <label> department_id </label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="add_item" value="Add Item">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="update" style="display: block">
-        <form id="update_item">
-            <legend><strong>Update Item</strong></legend>
-              <fieldset class="fields">
-                <label> item_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> name </label> <input type="text" name="">
-                <label> brand</label> <input type="text" name="">
-                <label> price </label> <input type="text" name="">
-                <label> clearance </label> <input type="text" name="">
-                <label> department_id </label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="update_item" value="Update Item">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
-    <div id="delete" style="display: block">
-        <form id="delete_item">
-            <legend><strong>Delete Item</strong></legend>
-              <fieldset class="fields">
-                <label> item_id </label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <label> name </label> <input type="text" name="">
-                <label> brand</label> <input type="text" name="">
-                <label> price </label> <input type="text" name="">
-                <label> clearance </label> <input type="text" name="">
-                <label> department_id </label> <input type="text" name="">
-              </fieldset>
-              <input class="btn" type="submit" id="delete_item" value="Delete Item">
-              <input class="btn" type="button" value="Cancel">
-        </form>
-    </div>
+                    <!-- Then iterate through every key in the current item dictionary -->
+                    {% for key in item.keys() %}
 
-    
+                    <!-- Create a <td> element with the value of that key in it -->
+                    <td> {{item[key]}} </td> 
+                    {% endfor %}
+
+                    <!-- Create our edit/delete buttons -->
+                    <td><a href="edit_item/{{item.item_id}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_item/{{item.item_id}}" class="btn btn-default">Delete</a></td>
+
+                </tr> 
+                {% endfor %} 
+        {% endif %} 
+    </table>   
+    <div id="insert">
+        <form id="insertItem" action="/items" method="POST">
+            <legend><strong>Add Item</strong></legend>
+            <label for ="name">name</label>
+            <input type="text" id="name" name="name" required>
+            <label for ="price">price</label>
+            <input type="text" id="price" name="price" required>
+            <label for ="clearance">clearance</label>
+            <input type="text" id="clearance" name="clearance" required>
+            <label for ="brand">brand</label>
+            <input type="text" id="brand" name="brand" required>
+            <label for ="departments_department_id">departments_department_id</label>
+            <input type="text" id="departments_department_id" name="departments_department_id" required>
+            <input type="submit" value="Add" name="Add_Item">
+        </form>
+    </div>
 </body>
 </html>
+

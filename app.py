@@ -140,6 +140,58 @@ def edit_employee(employee_id):
 
         return redirect("/employees")
 
+# Items 
+@app.route('/items', methods = ["POST", "GET"])
+def items():
+    if request.method == "GET":
+        # mySQL query to grab all
+        query = "SELECT * FROM items;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("items.j2", data=data)
+    # Items Insert
+    if request.method =="POST":
+        if request.form.get("Add_Items"):
+            name=request.form["name"]
+            price=request.form["price"]
+            clearance=request.form["clearance"]
+            brand=request.form["brand"]
+            departments_department_id=request.form["departments_department_id"]
+
+            query = "INSERT INTO items (name, price, clearance, brand, departments_department_id) VALUES (%s,%s,%s,%s,%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (name, price, clearance, brand, departments_department_id))
+            mysql.connection.commit()
+
+        return redirect("/items")
+
+
+
+
+# Sales 
+@app.route('/sales', methods = ["POST", "GET"])
+def sales():
+    if request.method == "GET":
+        # mySQL query to grab all
+        query = "SELECT * FROM sales;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        # FIX
+        return render_template("departments.j2", data=data)
+    # TODO Sale Insert #
+    if request.method =="POST":
+        if request.form.get("Add_Sales"):
+            sale_date=request.form["name"]
+            query = "INSERT INTO sales (sale_date) VALUES (%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (sale_date))
+            mysql.connection.commit()
+
+        return redirect("/sales")
+
 # Listener
 if __name__ == "__main__":
 
