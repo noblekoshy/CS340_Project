@@ -153,7 +153,7 @@ def items():
         return render_template("items.j2", data=data)
     # Items Insert
     if request.method =="POST":
-        if request.form.get("Add_Items"):
+        if request.form.get("Add_Item"):
             name=request.form["name"]
             price=request.form["price"]
             clearance=request.form["clearance"]
@@ -166,9 +166,44 @@ def items():
             mysql.connection.commit()
 
         return redirect("/items")
+    
+# Item Delete
+@app.route("/delete_item/<int:item_id>")
+def delete_item(item_id):
+    # mySQL query to delete with our passed id
+    query = "DELETE FROM items WHERE item_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (item_id,))
+    mysql.connection.commit()
 
+    # redirect back to departments page
+    return redirect("/items")
 
+# Item Edit
+@app.route("/edit_item/<int:item_id>", methods=["POST", "GET"])
+def edit_item(item_id):
+    if request.method == "GET":
+        query = "SELECT * FROM items WHERE item_id = %s" % (item_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
 
+        return render_template("edit_item.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Item"):
+            name=request.form["name"]
+            price=request.form["price"]
+            clearance=request.form["clearance"]
+            brand=request.form["brand"]
+            departments_department_id=request.form["departments_department_id"]
+
+        query = "UPDATE items SET items.name = %s, items.price = %s, items.clearance = %s, items.brand = %s, items.departments_department_id = %s  WHERE items.item_id = %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (name, price, clearance, brand, departments_department_id, item_id))
+        mysql.connection.commit()
+
+        return redirect("/items")
 
 # Sales 
 @app.route('/sales', methods = ["POST", "GET"])

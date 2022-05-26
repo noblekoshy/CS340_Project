@@ -1,0 +1,67 @@
+<html>
+
+<head>
+	<title>Edit Item</title>
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Item: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in item-->
+            <form id="Edit_Item" action="/edit_item/{{data[0].item_id}}" method="post">
+                <legend><strong>Edit Item</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of person to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{data[0].item_id}}" id="item_id" name="item_id" required>
+
+                    <label for="name">name:</label>
+                    <input type="text" value="{{data[0].name}}" id="name" name="name" required>
+
+                    <label for="price">price:</label>
+                    <input type="text" value="{{data[0].price}}" id="price" name="price" required>
+
+                    <label for="brand">brand:</label>
+                    <input type="text" value="{{data[0].brand}}" id="brand" name="brand" required>
+
+                    <label for="clearance">clearance:</label>
+                    <input type="clearance" value="{{data[0].clearance}}" id="clearance" name="clearance" required>
+
+                    <label for="departments_department_id">departments_department_id:</label>
+                    <input type="departments_department_id" value="{{data[0].departments_department_id}}" id="departments_department_id" name="departments_department_id" required>         
+                </fieldset>
+                <input type="submit" value="Edit Item" name="Edit_Item" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/items'><input class="btn" type="button" value="Cancel"></a>
+            </form>
+
+</html>
