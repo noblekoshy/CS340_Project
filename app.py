@@ -228,6 +228,18 @@ def sales():
 
         return redirect("/sales")
 
+# Sale Delete
+@app.route("/delete_sale/<int:sale_id>")
+def delete_sale(sale_id):
+    # mySQL query to delete with our passed id
+    query = "DELETE FROM sales WHERE sale_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (sale_id,))
+    mysql.connection.commit()
+
+    # redirect back to departments page
+    return redirect("/sales")
+
 # Listener
 if __name__ == "__main__":
 
