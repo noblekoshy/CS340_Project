@@ -214,15 +214,16 @@ def sales():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-        # FIX
-        return render_template("departments.j2", data=data)
-    # TODO Sale Insert #
+        
+        return render_template("sales.j2", data=data)
+    # TODO Sale Insert
     if request.method =="POST":
-        if request.form.get("Add_Sales"):
-            sale_date=request.form["name"]
-            query = "INSERT INTO sales (sale_date) VALUES (%s)"
+        if request.form.get("Add_Sale"):
+            sale_date = request.form["sale_date"]
+            employees_employee_id = request.form["employees_employee_id"]
+            query = "INSERT INTO sales (sale_date, employees_employee_id) VALUES (%s, %s)"
             cur = mysql.connection.cursor()
-            cur.execute(query, (sale_date))
+            cur.execute(query, (sale_date, employees_employee_id))
             mysql.connection.commit()
 
         return redirect("/sales")
