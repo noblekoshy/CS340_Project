@@ -240,6 +240,29 @@ def delete_sale(sale_id):
     # redirect back to departments page
     return redirect("/sales")
 
+# Sale Edit
+@app.route("/edit_sale/<int:sale_id>", methods=["POST", "GET"])
+def edit_sale(sale_id):
+    if request.method == "GET":
+        query = "SELECT * FROM sales WHERE sale_id = %s" % (sale_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("edit_sale.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Sale"):
+            sale_date=request.form["sale_date"]
+            employees_employee_id=request.form["employees_employee_id"]
+
+        query = "UPDATE sales SET sales.sale_date = %s, sales.employees_employee_id = %s WHERE sales.sale_id = %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (sale_date, employees_employee_id, sale_id))
+        mysql.connection.commit()
+
+        return redirect("/sales")
+
 # Listener
 if __name__ == "__main__":
 
