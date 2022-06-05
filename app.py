@@ -75,12 +75,12 @@ def edit_department(department_id):
             department_name=request.form["department_name"]
             location=request.form["location"]
 
-        query = "UPDATE departments SET departments.department_name = %s, departments.location = %s WHERE departments.department_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (department_name, location, department_id))
-        mysql.connection.commit()
+            query = "UPDATE departments SET departments.department_name = %s, departments.location = %s WHERE departments.department_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (department_name, location, department_id))
+            mysql.connection.commit()
 
-        return redirect("/departments")
+            return redirect("/departments")
 
 # Employees 
 @app.route('/employees', methods = ["POST", "GET"])
@@ -132,12 +132,12 @@ def edit_employee(employee_id):
             first_name=request.form["first_name"]
             last_name=request.form["last_name"]
 
-        query = "UPDATE employees SET employees.first_name = %s, employees.last_name = %s WHERE employees.employee_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (first_name, last_name, employee_id))
-        mysql.connection.commit()
+            query = "UPDATE employees SET employees.first_name = %s, employees.last_name = %s WHERE employees.employee_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (first_name, last_name, employee_id))
+            mysql.connection.commit()
 
-        return redirect("/employees")
+            return redirect("/employees")
 
 # Items 
 @app.route('/items', methods = ["POST", "GET"])
@@ -196,12 +196,12 @@ def edit_item(item_id):
             brand=request.form["brand"]
             departments_department_id=request.form["departments_department_id"]
 
-        query = "UPDATE items SET items.name = %s, items.price = %s, items.clearance = %s, items.brand = %s, items.departments_department_id = %s  WHERE items.item_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (name, price, clearance, brand, departments_department_id, item_id))
-        mysql.connection.commit()
+            query = "UPDATE items SET items.name = %s, items.price = %s, items.clearance = %s, items.brand = %s, items.departments_department_id = %s  WHERE items.item_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (name, price, clearance, brand, departments_department_id, item_id))
+            mysql.connection.commit()
 
-        return redirect("/items")
+            return redirect("/items")
 
 # Sales 
 @app.route('/sales', methods = ["POST", "GET"])
@@ -218,12 +218,21 @@ def sales():
         if request.form.get("Add_Sale"):
             sale_date = request.form["sale_date"]
             employees_employee_id = request.form["employees_employee_id"]
-            query = "INSERT INTO sales (sale_date, employees_employee_id) VALUES (%s, %s)"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (sale_date, employees_employee_id))
-            mysql.connection.commit()
 
-        return redirect("/sales")
+            # account for null employee 
+            if employees_employee_id == "":
+                query = "INSERT INTO sales (sale_date) VALUES (%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (sale_date,))
+                mysql.connection.commit()
+            
+            else:
+                query = "INSERT INTO sales (sale_date, employees_employee_id) VALUES (%s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (sale_date, employees_employee_id))
+                mysql.connection.commit()
+
+            return redirect("/sales")
 
 # Sale Delete
 @app.route("/delete_sale/<int:sale_id>")
@@ -252,12 +261,20 @@ def edit_sale(sale_id):
             sale_date=request.form["sale_date"]
             employees_employee_id=request.form["employees_employee_id"]
 
-        query = "UPDATE sales SET sales.sale_date = %s, sales.employees_employee_id = %s WHERE sales.sale_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (sale_date, employees_employee_id, sale_id))
-        mysql.connection.commit()
+            # account for null employee
+            if employees_employee_id == "" or employees_employee_id == "None":
+                query = "UPDATE sales SET sales.sale_date = %s, sales.employees_employee_id = NULL WHERE sales.sale_id = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (sale_date, sale_id))
+                mysql.connection.commit()
 
-        return redirect("/sales")
+            else:
+                query = "UPDATE sales SET sales.sale_date = %s, sales.employees_employee_id = %s WHERE sales.sale_id = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (sale_date, employees_employee_id, sale_id))
+                mysql.connection.commit()
+
+            return redirect("/sales")
 
 # Sale Details
 @app.route('/sale_details', methods = ["POST", "GET"])
@@ -308,12 +325,12 @@ def edit_delete_sale_details(sale_details_id):
             items_item_id=request.form["items_item_id"]
             sales_sale_id=request.form["sales_sale_id"]
 
-        query = "UPDATE sale_details SET sale_details.items_item_id = %s, sale_details.sales_sale_id = %s WHERE sale_details.sale_details_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query, (items_item_id, sales_sale_id, sale_details_id))
-        mysql.connection.commit()
+            query = "UPDATE sale_details SET sale_details.items_item_id = %s, sale_details.sales_sale_id = %s WHERE sale_details.sale_details_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (items_item_id, sales_sale_id, sale_details_id))
+            mysql.connection.commit()
 
-        return redirect("/sale_details")
+            return redirect("/sale_details")
 
 # Listener
 if __name__ == "__main__":
