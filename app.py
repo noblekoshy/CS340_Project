@@ -216,7 +216,6 @@ def sales():
         data = cur.fetchall()
         
         return render_template("sales.j2", data=data)
-    # TODO Sale Insert
     if request.method =="POST":
         if request.form.get("Add_Sale"):
             sale_date = request.form["sale_date"]
@@ -262,6 +261,28 @@ def edit_sale(sale_id):
         mysql.connection.commit()
 
         return redirect("/sales")
+
+# Sale Details
+@app.route('/sale_details', methods = ["POST", "GET"])
+def sale_details():
+    if request.method == "GET":
+        # mySQL query to grab all
+        query = "SELECT * FROM sale_details;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        
+        return render_template("sale_details.j2", data=data)
+    if request.method =="POST":
+        if request.form.get("Add_Sale_Detail"):
+            items_item_id = request.form["items_item_id"]
+            sales_sale_id = request.form["sales_sale_id"]
+            query = "INSERT INTO sale_details (items_item_id, sales_sale_id) VALUES (%s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (items_item_id, sales_sale_id))
+            mysql.connection.commit()
+
+        return redirect("/sale_details")
 
 # Listener
 if __name__ == "__main__":
