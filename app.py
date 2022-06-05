@@ -114,7 +114,6 @@ def delete_employee(employee_id):
     cur.execute(query, (employee_id,))
     mysql.connection.commit()
 
-    # redirect back to departments page
     return redirect("/employees")
 
 # Employee Edit
@@ -176,7 +175,6 @@ def delete_item(item_id):
     cur.execute(query, (item_id,))
     mysql.connection.commit()
 
-    # redirect back to departments page
     return redirect("/items")
 
 # Item Edit
@@ -236,7 +234,6 @@ def delete_sale(sale_id):
     cur.execute(query, (sale_id,))
     mysql.connection.commit()
 
-    # redirect back to departments page
     return redirect("/sales")
 
 # Sale Edit
@@ -283,6 +280,17 @@ def sale_details():
             mysql.connection.commit()
 
         return redirect("/sale_details")
+
+# Sale Detail Delete
+@app.route("/delete_sale_detail/<int:sale_details_id>")
+def delete_sale_details(sale_details_id):
+    # mySQL query to delete with our passed id
+    query = "DELETE FROM sale_details WHERE sale_details_id = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (sale_details_id,))
+    mysql.connection.commit()
+
+    return redirect("/sale_details")
 
 # Listener
 if __name__ == "__main__":
