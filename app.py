@@ -292,6 +292,29 @@ def delete_sale_details(sale_details_id):
 
     return redirect("/sale_details")
 
+# Sale Detail Edit
+@app.route("/edit_sale_detail/<int:sale_details_id>", methods=["POST", "GET"])
+def edit_delete_sale_details(sale_details_id):
+    if request.method == "GET":
+        query = "SELECT * FROM sale_details WHERE sale_details_id = %s" % (sale_details_id)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("edit_sale_detail.j2", data=data)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Sale_Detail"):
+            items_item_id=request.form["items_item_id"]
+            sales_sale_id=request.form["sales_sale_id"]
+
+        query = "UPDATE sale_details SET sale_details.items_item_id = %s, sale_details.sales_sale_id = %s WHERE sale_details.sale_details_id = %s"
+        cur = mysql.connection.cursor()
+        cur.execute(query, (items_item_id, sales_sale_id, sale_details_id))
+        mysql.connection.commit()
+
+        return redirect("/sale_details")
+
 # Listener
 if __name__ == "__main__":
 

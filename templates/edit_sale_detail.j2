@@ -1,13 +1,13 @@
 <html>
 
 <head>
-	<title>Edit Department</title>
+	<title>Edit Sale Detail</title>
 </head>
 
 <body>
     <div>
         <table border="1" cellpadding="5"> 
-            <caption> Editing Department: </caption>
+            <caption> Editing Sale Detail: </caption>
             <!-- Access data tuple passed from app.py -->
             {% if data %}
                 <thead>
@@ -38,22 +38,22 @@
 
         <div id="edit">
             <!-- form to edit data in department-->
-            <form id="Edit_Department" action="/edit_department/{{data[0].department_id}}" method="post">
-                <legend><strong>Edit Department</strong></legend>
+            <form id="Edit_Sale_Detail" action="/edit_sale_detail/{{data[0].sale_details_id}}" method="post">
+                <legend><strong>Edit Sale Detail</strong></legend>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of person to be updated via value= and accessing our passed data tuple -->
                     <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
-                    <input type="hidden" value="{{data[0].department_id}}" id="department_id" name="department_id" required>
+                    <input type="hidden" value="{{data[0].sale_details_id}}" id="sale_details_id" name="sale_details_id" required>
 
-                    <label for="department_name">department_name:</label>
-                    <input type="text" value="{{data[0].department_name}}" id="department_name" name="department_name" required>
+                    <label for="items_item_id">items_item_id:</label>
+                    <input type="text" value="{{data[0].items_item_id}}" id="items_item_id" name="items_item_id" required>
 
-                    <label for="location">location:</label>
-                    <input type="text" value="{{data[0].location}}" id="location" name="location" required>
+                    <label for="sales_sale_id">sales_sale_id:</label>
+                    <input type="text" value="{{data[0].sales_sale_id}}" id="sales_sale_id" name="sales_sale_id" required>
                                         
                 </fieldset>
-                <input type="submit" value="Edit Department" name="Edit_Department" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/departments'><input class="btn" type="button" value="Cancel"></a>
+                <input type="submit" value="Edit Sale Detail" name="Edit_Sale_Detail" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/sale_details'><input class="btn" type="button" value="Cancel"></a>
             </form>
 
 </html>
