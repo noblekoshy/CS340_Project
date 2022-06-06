@@ -149,7 +149,13 @@ def items():
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("items.j2", data=data)
+        # query to grab data for dropdown
+        query2 = "SELECT department_id, department_name from departments;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        department_data = cur.fetchall()
+
+        return render_template("items.j2", data=data, departments = department_data)
     # Items Insert
     if request.method =="POST":
         if request.form.get("Add_Item"):
@@ -157,7 +163,7 @@ def items():
             price=request.form["price"]
             clearance=request.form["clearance"]
             brand=request.form["brand"]
-            departments_department_id=request.form["departments_department_id"]
+            departments_department_id=request.form["department"]
 
             query = "INSERT INTO items (name, price, clearance, brand, departments_department_id) VALUES (%s,%s,%s,%s,%s)"
             cur = mysql.connection.cursor()
