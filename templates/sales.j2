@@ -42,9 +42,23 @@
         <form id="insertSale" action="/sales" method="POST">
             <legend><strong>Add Sale (Note: Employee is not required)</strong></legend>
             <label for ="sale_date">sale_date</label>
-            <input type="date" id="sale_date" name="sale_date" required>
-            <label for ="employees_employee_id">employees_employee_id</label>
-            <input type="text" id="employees_employee_id" name="employees_employee_id">
+            <input type="datetime-local" id="sale_date" name="sale_date" required>
+
+            <label for="employee">employee:</label>
+                <select id="employee" name="employee" placeholder=""> 
+                    <!-- Access our tuple passed from app.py-->
+                    <option value="">&nbsp;</option>
+                    {% for employee in employees %}
+                        <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                        {% if employee['employee_id'] == data[0].employees_employee_id %}
+                            <option value="{{ employee['employee_id'] }}" selected> {{employee['employee_id'],employee['first_name'], employee['last_name']}}</option>
+                        {% else %}
+                            <option value="{{ employee['employee_id'] }}"> {{employee['employee_id'],employee['first_name'], employee['last_name']}}</option> 
+                        {% endif %}
+                    <!-- End of this for loop -->
+                    {% endfor %} 
+                </select>
+
             <input type="submit" value="Add" name="Add_Sale">
         </form>
     </div>

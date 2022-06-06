@@ -4,6 +4,8 @@ import os
 
 # Adapted from the OSU CS340 Flask Starter App https://github.com/osu-cs340-ecampus/flask-starter-app
 
+# TODO implement search function, no fk entry, make M:M easier to read
+
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
@@ -47,7 +49,6 @@ def departments():
         return redirect("/departments")
 
 # Department Delete
-# we want to pass the 'id' value of that person on button click (see HTML) via the route
 @app.route("/delete_department/<int:department_id>")
 def delete_department(department_id):
     # mySQL query to delete with our passed id
@@ -224,12 +225,19 @@ def sales():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-        
-        return render_template("sales.j2", data=data)
+
+        # query to grab data for dropdown
+        query2 = "SELECT employee_id, first_name, last_name from employees;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        employee_data = cur.fetchall()
+
+        return render_template("sales.j2", data=data, employees = employee_data)
+
     if request.method =="POST":
         if request.form.get("Add_Sale"):
             sale_date = request.form["sale_date"]
-            employees_employee_id = request.form["employees_employee_id"]
+            employees_employee_id = request.form["employee"]
 
             # account for null employee 
             if employees_employee_id == "":
@@ -266,12 +274,18 @@ def edit_sale(sale_id):
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("edit_sale.j2", data=data)
+        # query to grab data for dropdown
+        query2 = "SELECT employee_id, first_name, last_name from employees;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        employee_data = cur.fetchall()
+
+        return render_template("edit_sale.j2", data=data, employees = employee_data)
 
     if request.method == "POST":
         if request.form.get("Edit_Sale"):
             sale_date=request.form["sale_date"]
-            employees_employee_id=request.form["employees_employee_id"]
+            employees_employee_id=request.form["employee"]
 
             # account for null employee
             if employees_employee_id == "" or employees_employee_id == "None":
@@ -297,12 +311,25 @@ def sale_details():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
+
+        # query to grab data for dropdown
+        query2 = "SELECT item_id, name from items;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        item_data = cur.fetchall()
+
+        # query to grab data for dropdown
+        query3 = "SELECT sale_id, sale_date from sales;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        sale_data = cur.fetchall()
+
+        return render_template("sale_details.j2", data=data, items = item_data, sales = sale_data)
         
-        return render_template("sale_details.j2", data=data)
     if request.method =="POST":
         if request.form.get("Add_Sale_Detail"):
-            items_item_id = request.form["items_item_id"]
-            sales_sale_id = request.form["sales_sale_id"]
+            items_item_id = request.form["item"]
+            sales_sale_id = request.form["sale"]
             query = "INSERT INTO sale_details (items_item_id, sales_sale_id) VALUES (%s, %s)"
             cur = mysql.connection.cursor()
             cur.execute(query, (items_item_id, sales_sale_id))
@@ -330,12 +357,24 @@ def edit_delete_sale_details(sale_details_id):
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("edit_sale_detail.j2", data=data)
+        # query to grab data for dropdown
+        query2 = "SELECT item_id, name from items;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        item_data = cur.fetchall()
+
+        # query to grab data for dropdown
+        query3 = "SELECT sale_id, sale_date from sales;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        sale_data = cur.fetchall()
+
+        return render_template("edit_sale_detail.j2", data=data, items = item_data, sales = sale_data)
 
     if request.method == "POST":
         if request.form.get("Edit_Sale_Detail"):
-            items_item_id=request.form["items_item_id"]
-            sales_sale_id=request.form["sales_sale_id"]
+            items_item_id=request.form["item"]
+            sales_sale_id=request.form["sale"]
 
             query = "UPDATE sale_details SET sale_details.items_item_id = %s, sale_details.sales_sale_id = %s WHERE sale_details.sale_details_id = %s"
             cur = mysql.connection.cursor()
@@ -347,6 +386,5 @@ def edit_delete_sale_details(sale_details_id):
 # Listener
 if __name__ == "__main__":
 
-    #Start the app on port 3000, it will be different once hosted
     app.run(port=19956, debug=True)
 

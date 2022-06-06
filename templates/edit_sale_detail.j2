@@ -45,11 +45,35 @@
                     <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
                     <input type="hidden" value="{{data[0].sale_details_id}}" id="sale_details_id" name="sale_details_id" required>
 
-                    <label for="items_item_id">items_item_id:</label>
-                    <input type="text" value="{{data[0].items_item_id}}" id="items_item_id" name="items_item_id" required>
-
-                    <label for="sales_sale_id">sales_sale_id:</label>
-                    <input type="text" value="{{data[0].sales_sale_id}}" id="sales_sale_id" name="sales_sale_id" required>
+                    <label for="item">item_id:</label>
+                    <select id="item" name="item" placeholder="" required> 
+                        <!-- Access our tuple passed from app.py-->
+                        <option value="">&nbsp;</option>
+                        {% for item in items %}
+                            <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                            {% if item['item_id'] == data[0].items_item_id %}
+                                <option value="{{ item['item_id'] }}" selected> {{item['item_id'],item['name']}}</option>
+                            {% else %}
+                                <option value="{{ item['item_id'] }}"> {{item['item_id'],item['name']}}</option> 
+                            {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+                
+                    <label for="sale">sale_id:</label>
+                    <select id="sale" name="sale" placeholder="" required> 
+                        <!-- Access our tuple passed from app.py-->
+                        <option value="">&nbsp;</option>
+                        {% for sale in sales %}
+                            <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                            {% if sale['sale_id'] == data[0].sales_sale_id %}
+                                <option value="{{ sale['sale_id'] }}" selected> {{sale['sale_id']}}</option>
+                            {% else %}
+                                <option value="{{ sale['sale_id'] }}"> {{sale['sale_id']}}</option> 
+                            {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
                                         
                 </fieldset>
                 <input type="submit" value="Edit Sale Detail" name="Edit_Sale_Detail" class="btn btn-primary" style="margin:.5rem;">

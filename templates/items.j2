@@ -48,7 +48,10 @@
             <label for ="brand">brand</label>
             <input type="text" id="brand" name="brand" required>
             <label for ="clearance">clearance</label>
-            <input type="text" id="clearance" name="clearance" required>
+            <select id="clearance" name="clearance" required>
+				<option value="0">0</option>
+                <option value="1">1</option>
+			</select>
 
             <label for="department">department:</label>
             <select id="department" name="department" placeholder="" required> 
@@ -64,7 +67,6 @@
                 <!-- End of this for loop -->
                 {% endfor %} 
             </select>	
-
 
             <input type="submit" value="Add" name="Add_Item">
         </form>

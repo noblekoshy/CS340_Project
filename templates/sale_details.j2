@@ -41,10 +41,37 @@
     <div id="insert">
         <form id="insertSaleDetails" action="/sale_details" method="POST">
             <legend><strong>Add Sale Details</strong></legend>
-            <label for ="items_item_id">items_item_id</label>
-            <input type="text" id="items_item_id" name="items_item_id" required>
-            <label for ="sales_sale_id">sales_sale_id</label>
-            <input type="text" id="sales_sale_id" name="sales_sale_id" required>
+
+            <label for="item">item_id:</label>
+                <select id="item" name="item" placeholder="" required> 
+                    <!-- Access our tuple passed from app.py-->
+                    <option value="">&nbsp;</option>
+                    {% for item in items %}
+                        <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                        {% if item['item_id'] == data[0].items_item_id %}
+                            <option value="{{ item['item_id'] }}" selected> {{item['item_id'],item['name']}}</option>
+                        {% else %}
+                            <option value="{{ item['item_id'] }}"> {{item['item_id'],item['name']}}</option> 
+                        {% endif %}
+                    <!-- End of this for loop -->
+                    {% endfor %} 
+                </select>
+            
+            <label for="sale">sale_id:</label>
+                <select id="sale" name="sale" placeholder="" required> 
+                    <!-- Access our tuple passed from app.py-->
+                    <option value="">&nbsp;</option>
+                    {% for sale in sales %}
+                        <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                        {% if sale['sale_id'] == data[0].sales_sale_id %}
+                            <option value="{{ sale['sale_id'] }}" selected> {{sale['sale_id']}}</option>
+                        {% else %}
+                            <option value="{{ sale['sale_id'] }}"> {{sale['sale_id']}}</option> 
+                        {% endif %}
+                    <!-- End of this for loop -->
+                    {% endfor %} 
+                </select>
+
             <input type="submit" value="Add" name="Add_Sale_Detail">
         </form>
     </div>
