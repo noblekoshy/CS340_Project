@@ -57,8 +57,21 @@
                     <label for="clearance">clearance:</label>
                     <input type="clearance" value="{{data[0].clearance}}" id="clearance" name="clearance" required>
 
-                    <label for="departments_department_id">departments_department_id:</label>
-                    <input type="departments_department_id" value="{{data[0].departments_department_id}}" id="departments_department_id" name="departments_department_id" required>         
+                    <label for="department">department:</label>
+                    <select id="department" name="department" placeholder="" required> 
+                        <!-- Access our department tuple passed from app.py-->
+                        <option value="">&nbsp;</option>
+                        {% for department in departments %}
+                            <!-- If the value iterated value matches the value of the thing currently Editing, pre-select that option -->
+                            {% if department['department_id'] == data[0].departments_department_id %}
+                                <option value="{{ department['department_id'] }}" selected> {{department['department_name']}}</option>
+                            {% else %}
+                                <option value="{{ department['department_id'] }}"> {{department['department_name']}}</option> 
+                            {% endif %}
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+
                 </fieldset>
                 <input type="submit" value="Edit Item" name="Edit_Item" class="btn btn-primary" style="margin:.5rem;">
                 <a href='/items'><input class="btn" type="button" value="Cancel"></a>

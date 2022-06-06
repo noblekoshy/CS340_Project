@@ -192,7 +192,13 @@ def edit_item(item_id):
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("edit_item.j2", data=data)
+        # query to grab data for dropdown
+        query2 = "SELECT department_id, department_name from departments;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        department_data = cur.fetchall()
+
+        return render_template("edit_item.j2", data=data, departments = department_data)
 
     if request.method == "POST":
         if request.form.get("Edit_Item"):
@@ -200,7 +206,7 @@ def edit_item(item_id):
             price=request.form["price"]
             clearance=request.form["clearance"]
             brand=request.form["brand"]
-            departments_department_id=request.form["departments_department_id"]
+            departments_department_id=request.form["department"]
 
             query = "UPDATE items SET items.name = %s, items.price = %s, items.clearance = %s, items.brand = %s, items.departments_department_id = %s  WHERE items.item_id = %s"
             cur = mysql.connection.cursor()
