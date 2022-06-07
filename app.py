@@ -4,8 +4,6 @@ import os
 
 # 6/1/2022 Adapted from the OSU CS340 Flask Starter App https://github.com/osu-cs340-ecampus/flask-starter-app
 
-# TODO implement search function
-
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
