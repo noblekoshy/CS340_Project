@@ -2,9 +2,9 @@ from flask import Flask, render_template, json, redirect, request
 from flask_mysqldb import MySQL
 import os
 
-# Adapted from the OSU CS340 Flask Starter App https://github.com/osu-cs340-ecampus/flask-starter-app
+# 6/1/2022 Adapted from the OSU CS340 Flask Starter App https://github.com/osu-cs340-ecampus/flask-starter-app
 
-# TODO implement search function, no fk entry, make M:M easier to read
+# TODO implement search function
 
 app = Flask(__name__)
 
@@ -157,8 +157,17 @@ def items():
         department_data = cur.fetchall()
 
         return render_template("items.j2", data=data, departments = department_data)
-    # Items Insert
+    # Items Search/Insert
     if request.method =="POST":
+        if request.form.get("search"):
+            search = request.form["search"].lower()
+            query = '%' + search + '%'
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT * FROM items WHERE name LIKE %s", (query,))
+            data = cur.fetchall()
+
+            return render_template("items.j2", data=data)
+
         if request.form.get("Add_Item"):
             name=request.form["name"]
             price=request.form["price"]

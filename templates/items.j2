@@ -5,6 +5,13 @@
 <body>
     <h1>Items</h1>
     <a href="/">Home</a>
+    <div>
+		<form id="searchItem" action="/items" method="post">
+			<input type="text" id="search" name="search" placeholder="Search Item Name" aria-label="Search">
+			<button type="submit">Search</button>
+            <a href='/items'><input class="btn" type="button" value="Reset"></a>
+		</form>
+	</div>
     <table border="1" cellpadding="5">
     <!-- Access data tuple passed from app.py --> 
     {% if data %}
