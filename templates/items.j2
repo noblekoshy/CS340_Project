@@ -4,7 +4,14 @@
 </head>
 <body>
     <h1>Items</h1>
-    <a href="/">Home</a>
+    <div class="topnav">
+        <a class="active" href="/">Home</a> |
+        <a href="/departments">Departments</a> |
+        <a href="/employees">Employees</a> |
+        <a href="/items">Items</a> |
+        <a href="/sales">Sales</a> |
+        <a href="/sale_details">Sale Details</a>
+    </div>
     <div>
 		<form id="searchItem" action="/items" method="post">
 			<input type="text" id="search" name="search" placeholder="Search Item Name" aria-label="Search">

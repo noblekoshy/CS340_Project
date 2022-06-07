@@ -4,7 +4,14 @@
 </head>
 <body>
     <h1>Sales Details</h1>
-    <a href="/">Home</a>
+    <div class="topnav">
+        <a class="active" href="/">Home</a> |
+        <a href="/departments">Departments</a> |
+        <a href="/employees">Employees</a> |
+        <a href="/items">Items</a> |
+        <a href="/sales">Sales</a> |
+        <a href="/sale_details">Sale Details</a>
+    </div>
     <table border="1" cellpadding="5">
     <!-- Access data tuple passed from app.py --> 
     {% if data %}
